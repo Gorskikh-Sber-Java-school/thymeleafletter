@@ -11,16 +11,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LetterController {
 
+    @GetMapping("/")
+    public String startPage() {
+        return "redirect:introduction";
+    }
+
     @GetMapping("/introduction")
     public String introduceForm(Model model) {
         model.addAttribute("user", new User());
         return "introduction";
     }
 
+    @GetMapping("/letter")
+    public String getLetter() {
+        return "redirect:introduction";
+    }
+
     @PostMapping(value = "/letter")
     public String letter(@ModelAttribute(name = "user") User user, Model model) {
         user.setOrders(OrderService.generateOrders(453772));
-        user.setRegistered(false);
+        user.setRegistered(true);
         user.setPoints(534);
         return "letter";
     }
